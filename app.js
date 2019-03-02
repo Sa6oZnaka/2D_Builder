@@ -28,8 +28,10 @@ var map = create2d(100, 100, 0);
 var CubeSize = 20;
 var mapSize = 100;
 
-var mouseY,
-    mouseX;
+var mouseX,
+    mouseY,
+    mousePressX,
+    mousePressY;
 
 window.addEventListener("keydown", function (args) {
     
@@ -48,7 +50,18 @@ window.addEventListener("mousemove", function (args) {
 
 window.addEventListener("mousedown", function (args) {
     
-    map[Math.floor(mouseX/CubeSize)][Math.floor(mouseY/CubeSize)] = 1;
+    mousePressX = args.clientX-canvas.offsetLeft;
+    mousePressY = args.clientY-canvas.offsetTop;
+    
+}, false);
+
+window.addEventListener("mouseup", function (args) {
+    var i, j;
+    for(i = Math.floor(mouseY/CubeSize) ;i < Math.floor(mousePressY/CubeSize); i++){
+        for(j = Math.floor(mouseX/CubeSize); j < Math.floor(mousePressX/CubeSize); j ++){
+            map[j][i] = 1;   
+        }
+    }
     
 }, false);
 
